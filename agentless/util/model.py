@@ -51,7 +51,10 @@ class OpenAIChatDecoder(DecoderBase):
             batch_size=batch_size,
             model=self.name,
         )
-        ret = request_chatgpt_engine(config, self.logger)
+        #hu change 0814
+        #ret = request_chatgpt_engine(config, self.logger)
+        ret = request_chatgpt_engine(config)
+        
         if ret:
             responses = [choice.message.content for choice in ret.choices]
             completion_tokens = ret.usage.completion_tokens
@@ -109,9 +112,12 @@ class DeepSeekChatDecoder(DecoderBase):
                 batch_size=1,
                 model=self.name,
             )
-            ret = request_chatgpt_engine(
-                config, self.logger, base_url="https://api.deepseek.com"
-            )
+            #hu change 0814
+            # ret = request_chatgpt_engine(
+            #     config, self.logger, base_url="https://api.deepseek.com"
+            # )
+            ret = request_chatgpt_engine(config)
+            
             if ret:
                 trajs.append(
                     {

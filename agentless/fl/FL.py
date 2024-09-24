@@ -480,7 +480,22 @@ Return just the locations.
         )
         self.logger.info(f"prompting with message:\n{message}")
         self.logger.info("=" * 80)
-        assert num_tokens_from_messages(message, self.model_name) < MAX_CONTEXT_LENGTH
+        #assert num_tokens_from_messages(message, self.model_name) < MAX_CONTEXT_LENGTH hu change 0814
+        token_count = num_tokens_from_messages(message, "gpt-4o-2024-05-13")
+        
+        if num_tokens_from_messages(message, "gpt-4o-2024-05-13")> 128000:
+            reduction_ratio = 1 - (110000 / token_count)
+            content_lines = topn_content.split('\n')
+            total_lines = len(content_lines)
+            reduced_lines = content_lines[int(len(content_lines) * reduction_ratio) // 2 :total_lines - int(len(content_lines) * reduction_ratio) // 2]
+            topn_content = '\n'.join(reduced_lines)
+            
+            message = template.format(
+            problem_statement=self.problem_statement, file_contents=topn_content
+        )
+            
+        assert num_tokens_from_messages(message, "gpt-4o-2024-05-13") < 128000# 断言token数小于128000  
+          
         if mock:
             self.logger.info("Skipping querying model since mock=True")
             traj = {

@@ -31,6 +31,7 @@ PROJECT_FILE_LOC = os.environ.get("PROJECT_FILE_LOC", None)
 def localize_instance(
     bug, args, swe_bench_data, start_file_locs, existing_instance_ids
 ):
+    
     instance_id = bug["instance_id"]
     log_file = os.path.join(
         args.output_folder, "localization_logs", f"{instance_id}.log"
@@ -191,9 +192,93 @@ def localize(args):
     existing_instance_ids = (
         load_existing_instance_ids(args.output_file) if args.skip_existing else set()
     )
+    
+    valid_instance_ids = [
+        "sympy__sympy-20049",
+        "sympy__sympy-20154",
+        "sympy__sympy-20212",
+        "sympy__sympy-20322",
+        "sympy__sympy-20442",
+        "sympy__sympy-20590",
+        "sympy__sympy-20639",
+        "sympy__sympy-21055",
+        "sympy__sympy-21171",
+        "sympy__sympy-21379",
+        "sympy__sympy-21612",
+        "sympy__sympy-21614",
+        "sympy__sympy-21627",
+        "sympy__sympy-21847",
+        "sympy__sympy-22005",
+        "sympy__sympy-22714",
+        "sympy__sympy-22840",
+        "sympy__sympy-23117",
+        "sympy__sympy-23191",
+        "sympy__sympy-23262",
+        "sympy__sympy-24066",
+        "sympy__sympy-24102",
+        "sympy__sympy-24152",
+        "sympy__sympy-24213",
+        "sympy__sympy-24909"
+        
+    ]
+    
+    
+    # deja_valid_instance_ids = [
+    #     "astropy__astropy-12907",
+    #     "astropy__astropy-14182",
+    #     "astropy__astropy-14365",
+    #     "astropy__astropy-14995",
+    #     "astropy__astropy-6938",
+    #     "astropy__astropy-7746",
+    #     "django__django-10914",
+    #     "django__django-10924",
+    #     "django__django-11001",
+    #     "django__django-11019",
+    #     "django__django-11039",
+    #     "django__django-11049",
+    #     "django__django-11099",
+    #     "django__django-11133",
+    #     "django__django-11179",
+    #     "django__django-11283",
+    #     "django__django-11422",
+    #     "django__django-11564",
+    #     "django__django-11583",
+    #     "django__django-11620",
+    #     "django__django-11630",
+    #     "django__django-11742",
+    #     "django__django-11797",
+    #     "django__django-11815",
+    #     "django__django-11848",
+    #     "django__django-11905",
+    #     "django__django-11910",
+    #     "django__django-11964",
+    #     "django__django-11999",
+    #     "django__django-12113",
+    #     "django__django-12125",
+    #     "django__django-12184",
+    #     "django__django-12284",
+    #     "django__django-12286",
+    #     "django__django-12308",
+    #     "django__django-12453",
+    #     "django__django-12470",
+    #     "django__django-12497",
+    #     "django__django-12589",
+    #     "django__django-12700",
+    #     "django__django-12708",
+    #     "django__django-12747",
+    #     "django__django-12856",
+        
+    # ]
+    
 
     if args.num_threads == 1:
         for bug in swe_bench_data:
+            # if bug["instance_id"] not in valid_instance_ids:
+            #     continue
+
+            if bug["instance_id"] not in valid_instance_ids:
+                continue
+        
             localize_instance(
                 bug, args, swe_bench_data, start_file_locs, existing_instance_ids
             )
