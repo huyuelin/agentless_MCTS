@@ -10,10 +10,10 @@ import tiktoken
 import logging
 
 # Configuration
-GPT4V_KEY = "52f7817a4f964a4db1dc57b7be25427e"
+GPT4V_KEY = "公司 gpt api1"
 GPT4V_ENDPOINT = "https://gcrgpt4aoai5c.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview"
 
-# GPT4V_KEY = "eb5c8ad7dda2424aa0996e4cf6ce637e"
+# GPT4V_KEY = "公司 gpt api2"
 # GPT4V_ENDPOINT = "https://gcrgpt4aoai5.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview"
 
 headers = {
@@ -116,8 +116,8 @@ def request_chatgpt_engine(config):
             signal.alarm(100)
             response = requests.post(GPT4V_ENDPOINT, headers=headers, json=config)
             #logging.info("GPT4V_KEY: ", GPT4V_KEY)
-            print("GPT4V_KEY: 52f7817a4f964a4db1dc57b7be25427e")
-            #print("GPT4V_KEY: eb5c8ad7dda2424aa0996e4cf6ce637e")
+            print("GPT4V_KEY: 公司 gpt api1")
+            #print("GPT4V_KEY: 公司 gpt api2")
             response.raise_for_status()
             json_response = response.json()
             
